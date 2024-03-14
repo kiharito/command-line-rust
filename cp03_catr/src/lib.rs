@@ -20,19 +20,19 @@ pub fn run(config: Config) -> MyResult<()> {
             Ok(contents) => {
                 let mut idx = 1;
                 for line in contents.lines() {
-                    let text = line.unwrap();
+                    let line = line?;
                     if config.number_lines {
-                        println!("     {idx}\t{text}");
+                        println!("{:>6}\t{line}", idx);
                         idx += 1;
                     } else if config.number_nonblank_lines {
-                        if text.is_empty() {
+                        if line.is_empty() {
                             println!();
                         } else {
-                            println!("     {idx}\t{text}");
+                            println!("{:>6}\t{line}", idx);
                             idx += 1;
                         }
                     } else {
-                        println!("{text}");
+                        println!("{line}");
                     }
                 }
             }
